@@ -8,15 +8,17 @@ import java.util.Set;
 public class Livrejeu {
 
     private List<Page> LesPages;
+    private Page pageActuelle;
     private Page pageDebut;
     private Page pageFin;
     private int nombrePageTotal;
     private Set<ObjetPage> objetACollecter;
     private Set<ObjetPage> objetsRecuperés;
 
-    public Livrejeu(Page pageDebut, Page pageFin, int nombrePageTotal, Set objetACollecter) {
-        this.LesPages = new ArrayList<>();
+    public Livrejeu(List<Page> lesPages, Page pageDebut, Page pageFin, int nombrePageTotal, Set<ObjetPage> objetACollecter) {
+        this.LesPages = lesPages;
         this.pageDebut = pageDebut;
+        this.pageActuelle = pageDebut;
         this.pageFin = pageFin;
         this.nombrePageTotal = nombrePageTotal;
         this.objetACollecter = objetACollecter;
@@ -29,6 +31,12 @@ public class Livrejeu {
     public Page getPageFin() {
         return pageFin;
     }
+    public Page getPageActuelle() {
+        return pageActuelle;
+    }
+    public void setPageActuelle(Page p){
+        this.pageActuelle = p;
+    }
     public int getNombrePageTotal() {
         return nombrePageTotal;
     }
@@ -39,6 +47,9 @@ public class Livrejeu {
         return objetACollecter.contains(o);
     }
     public boolean gagne(){
+        if (!(this.pageActuelle.equals(this.pageFin))){
+            return false;
+        }
         for(ObjetPage o : this.objetsRecuperés){
             if (!(this.objetACollecter.contains(o))){
                 return false;

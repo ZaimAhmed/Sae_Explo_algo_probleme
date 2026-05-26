@@ -36,4 +36,26 @@ public class Page{
     public void ajouterPage(Page p){
         this.pagesSuivantes.add(p);
     }
+
+    @Override
+    public boolean equals(Object o){
+        if (o == null){
+            return false;
+        }
+        if (this == o){
+            return true;
+        }
+        if (!(o instanceof Page)){
+            return false;
+        }
+
+        Page p = (Page) o;
+
+        return (this.numero == p.numero);
+    }
+
+    @Override
+    public int hashCode(){
+        return this.numero;
+    }
 }
