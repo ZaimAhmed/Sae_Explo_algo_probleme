@@ -10,6 +10,11 @@ public class Enigme {
         this.temps = 60;
     }
 
+    public Enigme(String texte, int temps){
+        this.texte = texte;
+        this.temps = temps;
+    }
+
     public String getTexte(){
         return this.texte;
     }
