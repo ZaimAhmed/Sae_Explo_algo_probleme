@@ -1,0 +1,4 @@
+--patch-module
+fr.univorleans.iut45.mathsgraphe=_
+--add-reads
+fr.univorleans.iut45.mathsgraphe=ALL-UNNAMED

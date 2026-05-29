@@ -19,38 +19,12 @@ public class LivrejeuTest {
         Set<ObjetPage> objetsACollecter = new HashSet<>();
         objetsACollecter.add(objetNecessaire);
 
-        Livrejeu livre = new Livrejeu(pages, debut, fin, 2, objetsACollecter);
+        Livrejeu livre = new Livrejeu(pages, debut, fin, objetsACollecter);
 
         assertTrue(debut == livre.getPageDebut());
         assertTrue(fin == livre.getPageFin());
-        assertTrue(debut == livre.getPageActuelle());
         assertEquals(2, livre.getNombrePageTotal());
         assertTrue(livre.estNecessaire(objetNecessaire));
-        assertFalse(livre.estCollecté(objetNecessaire));
     }
-
-    @Test
-    public void testGagne() {
-        Page debut = new Page(1, new Enigme("Debut"));
-        Page fin = new Page(2, new Enigme("Fin"));
-        List<Page> pages = Arrays.asList(debut, fin);
-        Set<ObjetPage> objetsACollecter = new HashSet<>();
-
-        Livrejeu livre = new Livrejeu(pages, debut, fin, 2, objetsACollecter);
-        livre.setPageActuelle(fin);
-
-        assertTrue(livre.gagne());
-    }
-
-    @Test
-    public void testPerdu() {
-        Page debut = new Page(1, new Enigme("Debut"));
-        Page fin = new Page(2, new Enigme("Fin"));
-        List<Page> pages = Arrays.asList(debut, fin);
-        Set<ObjetPage> objetsACollecter = new HashSet<>();
-
-        Livrejeu livre = new Livrejeu(pages, debut, fin, 2, objetsACollecter);
-
-        assertFalse(livre.gagne());
-    }
+    
 }

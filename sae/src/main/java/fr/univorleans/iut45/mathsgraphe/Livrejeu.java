@@ -1,61 +1,75 @@
 package fr.univorleans.iut45.mathsgraphe;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public class Livrejeu {
 
     private List<Page> LesPages;
-    private Page pageActuelle;
     private Page pageDebut;
     private Page pageFin;
-    private int nombrePageTotal;
     private Set<ObjetPage> objetACollecter;
-    private Set<ObjetPage> objetsRecuperés;
 
-    public Livrejeu(List<Page> lesPages, Page pageDebut, Page pageFin, int nombrePageTotal, Set<ObjetPage> objetACollecter) {
-        this.LesPages = lesPages;
+    public Livrejeu(List<Page> lesPages, Page pageDebut, Page pageFin, Set<ObjetPage> objetACollecter) {
+        this.LesPages = new ArrayList<>(lesPages);
         this.pageDebut = pageDebut;
-        this.pageActuelle = pageDebut;
         this.pageFin = pageFin;
-        this.nombrePageTotal = nombrePageTotal;
         this.objetACollecter = objetACollecter;
-        this.objetsRecuperés = new HashSet<>();
+    }
+
+    public List<Page> getPages(){
+        return this.LesPages;
     }
 
     public Page getPageDebut() {
         return pageDebut;
     }
+
     public Page getPageFin() {
         return pageFin;
     }
-    public Page getPageActuelle() {
-        return pageActuelle;
-    }
-    public void setPageActuelle(Page p){
-        this.pageActuelle = p;
-    }
+
     public int getNombrePageTotal() {
-        return nombrePageTotal;
+        return this.LesPages.size();
     }
-    public boolean estCollecté(ObjetPage o){
-        return objetsRecuperés.contains(o);
-    }
+
     public boolean estNecessaire(ObjetPage o){
         return objetACollecter.contains(o);
     }
-    public boolean gagne(){
-        if (!(this.pageActuelle.equals(this.pageFin))){
-            return false;
-        }
-        for(ObjetPage o : this.objetsRecuperés){
-            if (!(this.objetACollecter.contains(o))){
-                return false;
-            }
-        } 
-        return true;
+
+    public Set<ObjetPage> getObjetsACollecter() {
+        return this.objetACollecter;
     }
 
+    public void afficherStructure() {
+        System.out.println("\n=== STRUCTURE DU GRAPHE ===");
+        System.out.println("Début : Page " + pageDebut.getNumero());
+        System.out.println("Fin : Page " + pageFin.getNumero());
+        System.out.println("Objets à collecter : " + objetACollecter.size());
+        System.out.println("\nConnexions :");
+        
+        for (Page page : LesPages) {
+            System.out.print("  Page " + page.getNumero() + " -> ");
+            List<Page> suivantes = page.getPagesSuivantes();
+            
+            if (suivantes.isEmpty()) {
+                System.out.println("(aucune connexion)");
+            } else {
+                for (int i = 0; i < suivantes.size(); i++) {
+                    Page suivante = suivantes.get(i);
+                    int cout = page.getCoutVers(suivante);
+                    System.out.print("Page " + suivante.getNumero() + " (coût=" + cout + ")");
+                    if (i < suivantes.size() - 1) System.out.print(", ");
+                }
+                System.out.println();
+            }
+            
+            List<ObjetPage> objets = page.getObjet();
+            if (!objets.isEmpty()) {
+                System.out.println("    Objets : " + objets.size());
+            }
+        }
+        System.out.println("===========================\n");
+    }
 }

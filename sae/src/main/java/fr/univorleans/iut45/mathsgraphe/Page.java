@@ -1,7 +1,9 @@
 package fr.univorleans.iut45.mathsgraphe;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Page{
 
@@ -9,12 +11,14 @@ public class Page{
     private Enigme enigme;
     private List<ObjetPage> objet;
     private List<Page> pagesSuivantes;
+    private Map<Page, Integer> coutsPagesSuivantes;
 
     public Page(int numero, Enigme enigme) {
         this.numero = numero;
         this.enigme = enigme;
         this.objet = new ArrayList<>();
         this.pagesSuivantes = new ArrayList<>();
+        this.coutsPagesSuivantes = new HashMap<>();
     }
 
     public int getNumero() {
@@ -34,7 +38,20 @@ public class Page{
     }
 
     public void ajouterPage(Page p){
+        ajouterPage(p, 1);
+    }
+
+    public void ajouterPage(Page p, int cout){
         this.pagesSuivantes.add(p);
+        this.coutsPagesSuivantes.put(p, Math.max(1, cout));
+    }
+
+    public List<Page> getPagesSuivantes() {
+        return this.pagesSuivantes;
+    }
+
+    public int getCoutVers(Page page) {
+        return coutsPagesSuivantes.getOrDefault(page, 1);
     }
 
     @Override
